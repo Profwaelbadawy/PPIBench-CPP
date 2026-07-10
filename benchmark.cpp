@@ -1,0 +1,10 @@
+#include "benchmark.hpp"
+#include "wkt_utils.hpp"
+#include <boost/version.hpp>
+#include <chrono>
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
+namespace ppibench { namespace { using Clock=std::chrono::steady_clock; template<class F> double timed(F&&f){auto a=Clock::now();f();auto b=Clock::now();return std::chrono::duration<double,std::milli>(b-a).count();} std::string ver(){int v=BOOST_VERSION;return std::to_string(v/100000)+"."+std::to_string((v/100)%1000)+"."+std::to_string(v%100);} std::string esc(const std::string&s){if(s.find_first_of(",\"\n\r")==std::string::npos)return s;std::string o="\"";for(char c:s)o+=(c=='\"'?"\"\"":std::string(1,c));return o+'\"';}}
+std::vector<OperationResult> run_benchmark(const std::vector<CaseRecord>&cs,bool exp,const std::string&wp){std::vector<OperationResult> out;out.reserve(cs.size());std::ofstream wo;if(exp){wo.open(wp);if(!wo)throw std::runtime_error("Cannot write "+wp);wo<<"case_id,intersection_wkt,union_wkt,difference_wkt,symmetric_difference_wkt\n";}for(size_t i=0;i<cs.size();++i){OperationResult r;r.case_id=cs[i].case_id;r.backend="Boost.Geometry "+ver();try{auto p=parse_polygon_wkt(cs[i].wkt_p),q=parse_polygon_wkt(cs[i].wkt_q);MultiPolygon a,b,c,d;r.intersection_ms=timed([&]{bg::intersection(p,q,a);});r.union_ms=timed([&]{bg::union_(p,q,b);});r.difference_ms=timed([&]{bg::difference(p,q,c);});r.symmetric_difference_ms=timed([&]{bg::sym_difference(p,q,d);});r.total_ms=r.intersection_ms+r.union_ms+r.difference_ms+r.symmetric_difference_ms;r.intersection_area=total_area(a);r.union_area=total_area(b);r.difference_area=total_area(c);r.symmetric_difference_area=total_area(d);r.valid_intersection=all_valid(a);r.valid_union=all_valid(b);r.valid_difference=all_valid(c);r.valid_symmetric_difference=all_valid(d);r.status="ok";if(exp)wo<<esc(r.case_id)<<','<<esc(to_wkt(a))<<','<<esc(to_wkt(b))<<','<<esc(to_wkt(c))<<','<<esc(to_wkt(d))<<'\n';}catch(const std::exception&e){r.status=std::string("error: ")+e.what();}out.push_back(std::move(r));if((i+1)%10000==0||i+1==cs.size())std::cerr<<"Processed "<<i+1<<" / "<<cs.size()<<"\n";}return out;}
+}

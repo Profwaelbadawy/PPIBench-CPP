@@ -1,0 +1,4 @@
+case_id,backend,intersection_ms,union_ms,difference_ms,symmetric_difference_ms,total_ms,intersection_area,union_area,difference_area,symmetric_difference_area,valid_intersection,valid_union,valid_difference,valid_symmetric_difference,status
+PPI-DEMO-0001,Boost.Geometry 1.83.0,0.540176000,0.016175000,0.099450000,0.251060000,0.906861000,4.000000000,28.000000000,12.000000000,24.000000000,1,1,1,1,ok
+PPI-DEMO-0002,Boost.Geometry 1.83.0,0.005107000,0.001923000,0.005469000,0.004627000,0.017126000,0.000000000,8.000000000,4.000000000,8.000000000,1,1,1,1,ok
+PPI-DEMO-0003,Boost.Geometry 1.83.0,0.001462000,0.000982000,0.002384000,0.003615000,0.008443000,4.000000000,100.000000000,96.000000000,96.000000000,1,1,1,1,ok

@@ -1,0 +1,4 @@
+case_id,intersection_wkt,union_wkt,difference_wkt,symmetric_difference_wkt
+PPI-DEMO-0001,"MULTIPOLYGON(((2 4,4 4,4 2,2 2,2 4)))","MULTIPOLYGON(((2 4,2 6,6 6,6 2,4 2,4 0,0 0,0 4,2 4)))","MULTIPOLYGON(((2 4,2 2,4 2,4 0,0 0,0 4,2 4)))","MULTIPOLYGON(((4 2,4 0,0 0,0 4,2 4,2 2,4 2)),((4 2,4 4,2 4,2 6,6 6,6 2,4 2)))"
+PPI-DEMO-0002,MULTIPOLYGON(),"MULTIPOLYGON(((0 0,0 2,2 2,2 0,0 0)),((5 5,5 7,7 7,7 5,5 5)))","MULTIPOLYGON(((0 0,0 2,2 2,2 0,0 0)))","MULTIPOLYGON(((0 0,0 2,2 2,2 0,0 0)),((5 5,5 7,7 7,7 5,5 5)))"
+PPI-DEMO-0003,"MULTIPOLYGON(((2 2,2 4,4 4,4 2,2 2)))","MULTIPOLYGON(((0 0,0 10,10 10,10 0,0 0)))","MULTIPOLYGON(((0 0,0 10,10 10,10 0,0 0),(2 2,4 2,4 4,2 4,2 2)))","MULTIPOLYGON(((0 0,0 10,10 10,10 0,0 0),(2 2,4 2,4 4,2 4,2 2)))"

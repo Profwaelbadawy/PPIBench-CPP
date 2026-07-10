@@ -1,0 +1,25 @@
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning (dev) at CMakeLists.txt:5 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0")
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/PPIBench_CPP_Code/build
+[ 20%] Building CXX object CMakeFiles/ppibench.dir/src/csv_reader.cpp.o
+[ 40%] Building CXX object CMakeFiles/ppibench.dir/src/main.cpp.o
+[ 60%] Building CXX object CMakeFiles/ppibench.dir/src/wkt_utils.cpp.o
+[ 80%] Building CXX object CMakeFiles/ppibench.dir/src/benchmark.cpp.o
+[100%] Linking CXX executable ppibench
+[100%] Built target ppibench
+Processed 3 / 3
+Completed 3 cases; 3 successful.

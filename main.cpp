@@ -1,0 +1,7 @@
+#include "benchmark.hpp"
+#include "csv_reader.hpp"
+#include <cstdlib>
+#include <iostream>
+#include <stdexcept>
+void usage(const char*p){std::cout<<"Usage: "<<p<<" --input DATA.csv --output RESULTS.csv [--split all|train|validation|test] [--max-cases N] [--export-wkt FILE]\n";}
+int main(int argc,char**argv){ppibench::BenchmarkOptions o;try{for(int i=1;i<argc;++i){std::string a=argv[i];auto val=[&](){if(i+1>=argc)throw std::invalid_argument("Missing value for "+a);return std::string(argv[++i]);};if(a=="--input")o.input_csv=val();else if(a=="--output")o.output_csv=val();else if(a=="--split")o.split_filter=val();else if(a=="--max-cases")o.max_cases=std::stoull(val());else if(a=="--export-wkt"){o.export_wkt=true;o.output_wkt_csv=val();}else if(a=="--help"||a=="-h"){usage(argv[0]);return 0;}else throw std::invalid_argument("Unknown option "+a);}if(o.input_csv.empty()||o.output_csv.empty()){usage(argv[0]);return 1;}auto cases=ppibench::load_cases_csv(o.input_csv,o.split_filter,o.max_cases);if(cases.empty())throw std::runtime_error("No matching cases");auto rs=ppibench::run_benchmark(cases,o.export_wkt,o.output_wkt_csv);ppibench::write_results_csv(o.output_csv,rs);size_t ok=0;for(auto&r:rs)if(r.status=="ok")++ok;std::cout<<"Completed "<<rs.size()<<" cases; "<<ok<<" successful.\n";return ok==rs.size()?0:2;}catch(const std::exception&e){std::cerr<<"Fatal error: "<<e.what()<<"\n";return 1;}}
